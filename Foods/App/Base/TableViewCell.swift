@@ -9,7 +9,7 @@ import UIKit
 
 class TableViewCell: UITableViewCell, ReusebleCell {
     //MARK: - Properies
-    var data: [String : Any] = [:]
+    var data: [String : Any?] = [:]
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -23,7 +23,7 @@ class TableViewCell: UITableViewCell, ReusebleCell {
     }
 
     
-    func render(data: [String : Any]) {}
+    func render(data: [String : Any?]) {}
     
     // MARK: - Helpers
     func setUp() {}

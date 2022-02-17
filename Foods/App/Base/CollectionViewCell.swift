@@ -9,7 +9,7 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell, ReusebleCell {
     //MARK: - Properies
-    var data: [String : Any] = [:]
+    var data: [String : Any?] = [:]
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ class CollectionViewCell: UICollectionViewCell, ReusebleCell {
         setUp()
     }
 
-    func render(data: [String : Any]) {}
+    func render(data: [String : Any?]) {}
     
     // MARK: - Helpers
     func setUp() {}

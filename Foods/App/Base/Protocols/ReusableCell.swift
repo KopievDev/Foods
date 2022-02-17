@@ -8,6 +8,6 @@
 import Foundation
 
 protocol ReusebleCell {
-    var data: [String:Any] { get set }
-    func render(data: [String:Any])
+    var data: [String:Any?] { get set }
+    func render(data: [String:Any?])
 }
