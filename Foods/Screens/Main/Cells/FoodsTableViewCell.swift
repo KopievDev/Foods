@@ -13,13 +13,8 @@ class FoodsTableViewCell: TableViewCell {
     var cells: [[String: Any?]] = [[:]]
     
     private lazy var collectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.register(ArticleCell.self, forCellWithReuseIdentifier: ArticleCell.description())
-        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        flowLayout.scrollDirection = .horizontal
-        let width = (UIScreen.main.bounds.width)
-        flowLayout.itemSize = CGSize(width: 100, height: 100)
         cv.showsHorizontalScrollIndicator = false
         cv.backgroundColor = Theme.backgroundColor
         cv.dataSource = self
@@ -47,17 +42,16 @@ class FoodsTableViewCell: TableViewCell {
         flowLayout.itemSize = CGSize(width: width, height: width * 1.2)
         collectionView.collectionViewLayout = flowLayout
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.reloadData()
     }
     
     func createConstraints() {
-        let height = (UIScreen.main.bounds.width - 40) / 2 * 1.3
+        let height = (UIScreen.main.bounds.width - 40) / 2 * 1.4
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: height)
+            contentView.heightAnchor.constraint(equalToConstant: height)
         ])
     }
     

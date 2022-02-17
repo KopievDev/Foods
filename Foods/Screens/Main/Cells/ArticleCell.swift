@@ -53,7 +53,6 @@ class ArticleCell: CollectionViewCell {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-//            imageView.heightAnchor.constraint(equalToConstant: 120),
             
             blurView.bottomAnchor.constraint(equalTo: bottomAnchor),
             blurView.leadingAnchor.constraint(equalTo: leadingAnchor),
