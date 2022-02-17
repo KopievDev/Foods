@@ -13,6 +13,7 @@ class BaseVC: UIViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {.portrait}
     override var shouldAutorotate: Bool {false}
+    override var prefersStatusBarHidden: Bool {true}
     
     private var _state : [String: Any] = [:]
     public var state : [String: Any] {
