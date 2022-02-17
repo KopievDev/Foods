@@ -31,11 +31,12 @@ class FoodsTableViewCell: TableViewCell {
     override func setUp() {
         contentView.addSubview(collectionView)
         createConstraints()
+        configCollectionView()
     }
     
     override func render(data: [String : Any?]) {
         cells = data[ad: Keys.items]
-        configCollectionView()
+        collectionView.reloadData()
     }
     
     func configCollectionView() {
@@ -50,13 +51,13 @@ class FoodsTableViewCell: TableViewCell {
     }
     
     func createConstraints() {
-    
+        let height = (UIScreen.main.bounds.width - 40) / 2 * 1.3
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 210)
+            collectionView.heightAnchor.constraint(equalToConstant: height)
         ])
     }
     
