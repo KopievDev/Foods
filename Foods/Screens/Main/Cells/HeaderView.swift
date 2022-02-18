@@ -43,8 +43,8 @@ class HeaderView: UITableViewHeaderFooterView {
         ])
     }
     
-    func render(data: [String : Any?]) {
-        titleLabel.attributedText = data[s: Keys.header].add(attributs: (UIFont.boldSystemFont(ofSize: 22), Theme.textColor))
+    func render(data: Section?) {
+        titleLabel.attributedText = data?.header.add(attributs: (UIFont.boldSystemFont(ofSize: 22), Theme.textColor))
     }
     
 }

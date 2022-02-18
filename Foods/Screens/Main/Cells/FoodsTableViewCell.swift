@@ -10,8 +10,7 @@ import UIKit
 
 class FoodsTableViewCell: TableViewCell {
     // MARK: - Properties
-    var cells: [[String: Any?]] = [[:]]
-    
+    var items: [Item] = [Item]()
     private lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.register(ArticleCell.self, forCellWithReuseIdentifier: ArticleCell.description())
@@ -28,15 +27,15 @@ class FoodsTableViewCell: TableViewCell {
         createConstraints()
         configCollectionView()
     }
-    
-    override func render(data: [String : Any?]) {
-        cells = data[ad: Keys.items]
+        
+    func render(with section: Section?) {
+        items = section?.items ?? [Item]()
         collectionView.reloadData()
     }
     
     func configCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         flowLayout.scrollDirection = .horizontal
         let width = (UIScreen.main.bounds.width - 40) / 2
         flowLayout.itemSize = CGSize(width: width, height: width * 1.2)
@@ -64,14 +63,21 @@ class FoodsTableViewCell: TableViewCell {
 // MARK: - UICollectionViewDataSource
 extension FoodsTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cells.count
+        items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleCell.description(), for: indexPath) as? ArticleCell
-        let data = cells[indexPath.row]
+        let data = items[indexPath.row]
         cell?.render(data: data)
+        cell?.delegate = self
         return cell ?? UICollectionViewCell()
     }
     
+}
+
+extension FoodsTableViewCell: ArticleCellDelegate {
+    func reload(data: Section) {
+        render(with: data)
+    }
 }

@@ -15,7 +15,6 @@ class MainView: BaseView {
         tv.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         tv.register(FoodsTableViewCell.self, forCellReuseIdentifier: FoodsTableViewCell.description())
         tv.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderView.description())
-        tv.estimatedRowHeight = UITableView.automaticDimension
         tv.showsVerticalScrollIndicator = false
         tv.separatorStyle = .none
         return tv

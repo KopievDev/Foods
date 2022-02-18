@@ -15,11 +15,10 @@
 		B5D4401527BE8BF600B01E8C /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4401427BE8BF600B01E8C /* ReusableCell.swift */; };
 		B5D4401827BE8C3C00B01E8C /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4401727BE8C3C00B01E8C /* ArticleCell.swift */; };
 		B5D4401A27BE8CDB00B01E8C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4401927BE8CDB00B01E8C /* NetworkService.swift */; };
-		B5D4401C27BE909900B01E8C /* DictParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4401B27BE909900B01E8C /* DictParser.swift */; };
-		B5D4402127BE98DC00B01E8C /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4402027BE98DC00B01E8C /* Keys.swift */; };
 		B5D4402327BEA28700B01E8C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4402227BEA28700B01E8C /* HeaderView.swift */; };
 		B5D4402527BEDCDA00B01E8C /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4402427BEDCD900B01E8C /* Notify.swift */; };
 		B5D4402727BEDD7A00B01E8C /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4402627BEDD7A00B01E8C /* Haptic.swift */; };
+		B5D4405927BF856100B01E8C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4405827BF856000B01E8C /* Models.swift */; };
 		B5F94CEA27BE7E260033BEEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F94CE927BE7E260033BEEB /* AppDelegate.swift */; };
 		B5F94CEC27BE7E260033BEEB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F94CEB27BE7E260033BEEB /* SceneDelegate.swift */; };
 		B5F94CEE27BE7E260033BEEB /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F94CED27BE7E260033BEEB /* MainVC.swift */; };
@@ -41,11 +40,10 @@
 		B5D4401427BE8BF600B01E8C /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		B5D4401727BE8C3C00B01E8C /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		B5D4401927BE8CDB00B01E8C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		B5D4401B27BE909900B01E8C /* DictParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictParser.swift; sourceTree = "<group>"; };
-		B5D4402027BE98DC00B01E8C /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		B5D4402227BEA28700B01E8C /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B5D4402427BEDCD900B01E8C /* Notify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
 		B5D4402627BEDD7A00B01E8C /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
+		B5D4405827BF856000B01E8C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		B5F94CE627BE7E260033BEEB /* Foods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foods.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F94CE927BE7E260033BEEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5F94CEB27BE7E260033BEEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,10 +108,8 @@
 			children = (
 				B5D4400C27BE834A00B01E8C /* Theme.swift */,
 				B5D4401927BE8CDB00B01E8C /* NetworkService.swift */,
-				B5D4402027BE98DC00B01E8C /* Keys.swift */,
 				B5D4402627BEDD7A00B01E8C /* Haptic.swift */,
 				B5D4402427BEDCD900B01E8C /* Notify.swift */,
-				B5D4401B27BE909900B01E8C /* DictParser.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -153,6 +149,7 @@
 			children = (
 				B5F94CED27BE7E260033BEEB /* MainVC.swift */,
 				B5F94D0127BE81920033BEEB /* MainView.swift */,
+				B5D4405827BF856000B01E8C /* Models.swift */,
 				B5D4401F27BE988500B01E8C /* Cells */,
 			);
 			path = Main;
@@ -313,9 +310,7 @@
 			files = (
 				B5D4401327BE8B9200B01E8C /* CollectionViewCell.swift in Sources */,
 				B5F94CEE27BE7E260033BEEB /* MainVC.swift in Sources */,
-				B5D4401C27BE909900B01E8C /* DictParser.swift in Sources */,
 				B5F94D0227BE81920033BEEB /* MainView.swift in Sources */,
-				B5D4402127BE98DC00B01E8C /* Keys.swift in Sources */,
 				B5F94CEA27BE7E260033BEEB /* AppDelegate.swift in Sources */,
 				B5D4401527BE8BF600B01E8C /* ReusableCell.swift in Sources */,
 				B5D4401127BE8B5500B01E8C /* TableViewCell.swift in Sources */,
@@ -326,6 +321,7 @@
 				B5D4402727BEDD7A00B01E8C /* Haptic.swift in Sources */,
 				B5F94CFE27BE813A0033BEEB /* BaseVC.swift in Sources */,
 				B5D4401A27BE8CDB00B01E8C /* NetworkService.swift in Sources */,
+				B5D4405927BF856100B01E8C /* Models.swift in Sources */,
 				B5D4402527BEDCDA00B01E8C /* Notify.swift in Sources */,
 				B5D4400D27BE834A00B01E8C /* Theme.swift in Sources */,
 				B5D4402327BEA28700B01E8C /* HeaderView.swift in Sources */,

@@ -7,10 +7,8 @@
 
 import Foundation
 
-typealias ResponseBlock = ([String: Any]) -> Void
-
 protocol NetworkServiceProtocol: AnyObject {
-    func getArticles(_ completion: @escaping ResponseBlock)
+    func getArticles<T:Codable>(type: T.Type, _ completion: @escaping (T?)-> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -22,23 +20,18 @@ class NetworkService: NetworkServiceProtocol {
         self.session = URLSession(configuration: configurator)
     }
     
-    func getArticles(_ completion: @escaping ResponseBlock) {
+    func getArticles<T>(type: T.Type, _ completion: @escaping (T?) -> Void) where T : Decodable, T: Encodable {
         guard let baseURL = baseURL else {return}
         let request = URLRequest(url: baseURL)
+        let decoder = JSONDecoder()
         session.dataTask(with: request) { data, _, error in
-            guard let data = data, error == nil, let json = self.jsonToDictionary(data: data) else {return}
+            
+            guard let data = data, error == nil, let model = try? decoder.decode(type.self, from: data)  else {return}
             DispatchQueue.main.async {
-                completion(json)
+                completion(model)
             }
         }.resume()
     }
-    
-    private func jsonToDictionary(data: Data) -> [String: Any]? {
-        do {
-            return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-        } catch {
-            return nil
-        }
-    }
+
 }
 

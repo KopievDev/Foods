@@ -4,11 +4,16 @@
 //
 //  Created by Ivan Kopiev on 17.02.2022.
 //
+protocol ArticleCellDelegate: AnyObject {
+    func reload(data: Section)
+}
 
 import UIKit
 import SDWebImage
 class ArticleCell: CollectionViewCell {
     //MARK: - Propetries
+    weak var delegate: ArticleCellDelegate?
+    
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +39,8 @@ class ArticleCell: CollectionViewCell {
         label.numberOfLines = 0
         return label
     }()
+    
+    var item: Item?
     
     // MARK: - Life cycle
     override func setUp() {
@@ -66,15 +73,17 @@ class ArticleCell: CollectionViewCell {
             
         ])
     }
+
+    func render(data: Item) {
+        self.item = data
+        guard let url = URL(string: item?.image.the1X ?? "") else {return}
+        titleLabel.text = item?.title
+        imageView.sd_setImage(with: url)
+        layer.borderWidth = item?.isSelected ?? false ? 2 : 0
+    }
     
-    override func render(data: [String : Any?]) {
-        self.data = data
-        guard let url = URL(string: data[d:Keys.image][s:Keys.one_x]) else {return}
-        titleLabel.text = data[s: Keys.title]
-        layer.borderWidth = data[b: Keys.isSelected] ? 2 : 0
-        imageView.sd_setImage(with: url, placeholderImage: nil, options: .delayPlaceholder) { _, _, _, _ in
-        }
-        
+    func reloadData(data: Section) {
+        delegate?.reload(data: data)
     }
 }
 
