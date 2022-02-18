@@ -11,7 +11,8 @@ class MainVC: BaseVC {
     //MARK: - Properties
     let v = MainView()
     let network: NetworkServiceProtocol!
-    
+    var sections: [Section] = [Section]()
+    var countSelected: Int = 0
     //MARK: - Life cycle
     init(network: NetworkServiceProtocol) {
         self.network = network
@@ -30,7 +31,6 @@ class MainVC: BaseVC {
     }
     
     func setUp() {
-        state[i: Keys.selectedItems] = 0
         v.set(dataSource: self)
         v.set(delegate: self)
         featchData()
@@ -38,51 +38,62 @@ class MainVC: BaseVC {
     
     //MARK: - Helpers
     func featchData() {
-        network.getArticles { [weak self] resp in
-            guard let self = self else {return}
-            self.state[ad: Keys.sections] = resp[ad: Keys.sections]
+        network.getArticles(type: Welcome.self) { resp in
+            self.sections = resp?.sections ?? [Section]()
+            self.setSections()
+            self.v.render()
         }
     }
-    // Тут что-то грязное)
-    func updateStateWith(id: String) {
-        for section in 0 ..< state[ad: Keys.sections].count {
-            if let index = state[ad: Keys.sections][section][ad: Keys.items].firstIndex(where: { items in
-                items[s: Keys.id] == id
-            }) {
-                let isSelected = state[ad: Keys.sections][section][ad: Keys.items][index][b: Keys.isSelected]
-                
-                if state[i:Keys.selectedItems] <= 5 {
-                    if isSelected {
-                        state[i:Keys.selectedItems] -= 1
-                    } else {
-                        state[i:Keys.selectedItems] += 1
-                    }
-                    state[ad: Keys.sections][section][ad: Keys.items][index][b: Keys.isSelected] = !state[ad: Keys.sections][section][ad: Keys.items][index][b: Keys.isSelected]
-                } else {
-                    if isSelected {
-                        state[i:Keys.selectedItems] -= 1
-                        state[ad: Keys.sections][section][ad: Keys.items][index][b: Keys.isSelected] = !state[ad: Keys.sections][section][ad: Keys.items][index][b: Keys.isSelected]
-                        
-                    } else {
-                        Notify.showError(title: "Selected the maximum number of cells")
-                    }
-                }
-                
+    
+    func setSections() {
+        for index in 0..<sections.count {
+            sections[index].number = index
+            for indexItem in 0..<sections[index].items.count {
+                sections[index].items[indexItem].isSelected = false
             }
         }
+    }
+    
+    func canSelect(item: Item) -> Item {
+        var copyItem = item
+        let select = countSelected + 1
+        let deSelect = countSelected - 1
+        guard let isSelect = copyItem.isSelected else {return copyItem}
+        
+        if countSelected <= 5 {
+            countSelected = isSelect ? deSelect : select
+            copyItem.isSelected = !isSelect
+        } else {
+            if isSelect {
+                countSelected = deSelect
+                copyItem.isSelected = !isSelect
+                return copyItem
+            } else {
+                Notify.showError(title: "Selected the maximum number of cells")
+                copyItem.isSelected = false
+                return copyItem
+            }
+        }
+        return copyItem
+    }
+    
+    func update(item: Item) {
+        guard let sectionIndex = item.section,
+              let index = sections[sectionIndex].items.firstIndex(where: { $0.id == item.id }) else {return}
+        sections[sectionIndex].items[index] = canSelect(item: item)
     }
 }
 
 //MARK: - UITableViewDataSource
 extension MainVC: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {state[ad: Keys.sections].count}
+    func numberOfSections(in tableView: UITableView) -> Int {sections.count}
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {1}
             
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FoodsTableViewCell.description(), for: indexPath) as? FoodsTableViewCell
-        let data = state[ad: Keys.sections][indexPath.section]
-        cell?.render(data: data)
+        let data = sections[indexPath.section]
+        cell?.render(with: data)
         cell?.set(delegate: self)
         return cell ?? UITableViewCell()
     }
@@ -93,22 +104,20 @@ extension MainVC: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.description()) as? HeaderView
-        headerView?.render(data: state[ad: Keys.sections][section])
+        headerView?.render(data: sections[section])
         return headerView
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {UITableView.automaticDimension}
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {UITableView.automaticDimension}
-
 }
-
+//MARK: - UICollectionViewDelegate
 extension MainVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let item = collectionView.cellForItem(at: indexPath) as? ArticleCell else {return}
-        let id = item.data[s: Keys.id]
-        updateStateWith(id: id)
         Haptic.selection()
+        guard let item = collectionView.cellForItem(at: indexPath) as? ArticleCell,
+              let newItem = item.item else {return}
+        update(item: newItem)
+        if let section = item.item?.section {
+            item.reloadData(data: sections[section])
+        }
     }
 }
