@@ -13,10 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: fwal/setup-swift@v1
-    - name: Build and test
-      run: |
-          swift package init
-          swift package generate-xcodeproj 
-          swift build -v 
-          swift test -v
+    - name: Build
+      run: swift build -v
+    - name: Run tests
+      run: swift test -v
