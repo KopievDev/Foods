@@ -39,8 +39,7 @@ class MainVC: BaseVC {
     //MARK: - Helpers
     func featchData() {
         network.getArticles(type: Welcome.self) { [weak self] resp in
-            guard let self = self,
-                  let sections = resp?.sections else {return}
+            guard let self = self, let sections = resp?.sections else {return}
             self.sections = sections
             self.setSections()
             self.v.render()
@@ -62,19 +61,13 @@ class MainVC: BaseVC {
         let deSelect = countSelected - 1
         guard let isSelect = copyItem.isSelected else {return copyItem}
         
-        if countSelected <= 5 {
-            countSelected = isSelect ? deSelect : select
-            copyItem.toggle()
+        if !isSelect && countSelected > 5 {
+            Notify.showError(title: "Selected the maximum number of cells")
         } else {
-            if isSelect {
-                countSelected = deSelect
-                copyItem.toggle()
-                return copyItem
-            } else {
-                Notify.showError(title: "Selected the maximum number of cells")
-                return copyItem
-            }
+            countSelected = isSelect ? deSelect:select
+            copyItem.toggle()
         }
+        
         return copyItem
     }
     
