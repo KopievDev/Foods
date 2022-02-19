@@ -10,6 +10,7 @@ protocol ArticleCellDelegate: AnyObject {
 
 import UIKit
 import SDWebImage
+
 class ArticleCell: CollectionViewCell {
     //MARK: - Propetries
     weak var delegate: ArticleCellDelegate?
@@ -23,7 +24,7 @@ class ArticleCell: CollectionViewCell {
     }()
     
     let blurView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffect = UIBlurEffect(style: .light)
         let bv = UIVisualEffectView(effect: blurEffect)
         bv.translatesAutoresizingMaskIntoConstraints = false
         return bv

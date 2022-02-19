@@ -33,6 +33,8 @@ struct Item: Codable {
     var title: String = ""
     var isSelected: Bool? = false
     var section: Int? = 0
+    
+    mutating func toggle() {isSelected = !(isSelected ?? true)}
 }
 
 // MARK: - Image
