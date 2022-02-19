@@ -38,8 +38,10 @@ class MainVC: BaseVC {
     
     //MARK: - Helpers
     func featchData() {
-        network.getArticles(type: Welcome.self) { resp in
-            self.sections = resp?.sections ?? [Section]()
+        network.getArticles(type: Welcome.self) { [weak self] resp in
+            guard let self = self,
+                  let sections = resp?.sections else {return}
+            self.sections = sections
             self.setSections()
             self.v.render()
         }
@@ -62,15 +64,14 @@ class MainVC: BaseVC {
         
         if countSelected <= 5 {
             countSelected = isSelect ? deSelect : select
-            copyItem.isSelected = !isSelect
+            copyItem.toggle()
         } else {
             if isSelect {
                 countSelected = deSelect
-                copyItem.isSelected = !isSelect
+                copyItem.toggle()
                 return copyItem
             } else {
                 Notify.showError(title: "Selected the maximum number of cells")
-                copyItem.isSelected = false
                 return copyItem
             }
         }
@@ -113,11 +114,9 @@ extension MainVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         Haptic.selection()
-        guard let item = collectionView.cellForItem(at: indexPath) as? ArticleCell,
-              let newItem = item.item else {return}
-        update(item: newItem)
-        if let section = item.item?.section {
-            item.reloadData(data: sections[section])
-        }
+        guard let itemCell = collectionView.cellForItem(at: indexPath) as? ArticleCell,
+              let item = itemCell.item, let section = itemCell.item?.section else {return}
+        update(item: item)
+        itemCell.reloadData(data: sections[section])
     }
 }

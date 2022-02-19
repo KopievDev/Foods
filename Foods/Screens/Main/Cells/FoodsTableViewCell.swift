@@ -37,14 +37,14 @@ class FoodsTableViewCell: TableViewCell {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         flowLayout.scrollDirection = .horizontal
-        let width = (UIScreen.main.bounds.width - 40) / 2
+        let width = (Screen.width - 40) / 2
         flowLayout.itemSize = CGSize(width: width, height: width * 1.2)
         collectionView.collectionViewLayout = flowLayout
         collectionView.showsHorizontalScrollIndicator = false
     }
     
     func createConstraints() {
-        let height = (UIScreen.main.bounds.width - 40) / 2 * 1.4
+        let height = (Screen.width - 40) / 2 * 1.5
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
