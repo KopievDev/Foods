@@ -22,6 +22,7 @@ struct Section: Codable {
     mutating func updateItems() {
         for index in 0..<items.count {
             items[index].section = number
+            items[index].isSelected = false
         }
     }
 }

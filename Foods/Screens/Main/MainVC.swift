@@ -10,18 +10,18 @@ import UIKit
 class MainVC: BaseVC {
     //MARK: - Properties
     let v = MainView()
-    let network: NetworkServiceProtocol!
     var sections: [Section] = [Section]()
-    var countSelected: Int = 0
+    let network: NetworkServiceProtocol!
+    var counter: Counter!
+    
     //MARK: - Life cycle
-    init(network: NetworkServiceProtocol) {
+    init(network: NetworkServiceProtocol, counter: Counter) {
+        self.counter = counter
         self.network = network
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
     
     override func loadView() {view = v}
     
@@ -41,40 +41,19 @@ class MainVC: BaseVC {
         network.getArticles(type: Welcome.self) { [weak self] resp in
             guard let self = self, let sections = resp?.sections else {return}
             self.sections = sections
-            self.setSections()
+            self.setIndexForSections()
             self.v.render()
         }
     }
     
-    func setSections() {
-        for index in 0..<sections.count {
-            sections[index].number = index
-            for indexItem in 0..<sections[index].items.count {
-                sections[index].items[indexItem].isSelected = false
-            }
-        }
-    }
-    
-    func canSelect(item: Item) -> Item {
-        var copyItem = item
-        let select = countSelected + 1
-        let deSelect = countSelected - 1
-        guard let isSelect = copyItem.isSelected else {return copyItem}
-        
-        if !isSelect && countSelected > 5 {
-            Notify.showError(title: "Selected the maximum number of cells")
-        } else {
-            countSelected = isSelect ? deSelect:select
-            copyItem.toggle()
-        }
-        
-        return copyItem
+    func setIndexForSections() {
+        for index in 0..<sections.count {sections[index].number = index}
     }
     
     func update(item: Item) {
         guard let sectionIndex = item.section,
-              let index = sections[sectionIndex].items.firstIndex(where: { $0.id == item.id }) else {return}
-        sections[sectionIndex].items[index] = canSelect(item: item)
+              let itemIndex = sections[sectionIndex].items.firstIndex(where: { $0.id == item.id }) else {return}
+        sections[sectionIndex].items[itemIndex] = counter.canSelect(item: item)
     }
 }
 
@@ -86,8 +65,8 @@ extension MainVC: UITableViewDataSource {
             
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FoodsTableViewCell.description(), for: indexPath) as? FoodsTableViewCell
-        let data = sections[indexPath.section]
-        cell?.render(with: data)
+        let section = sections[indexPath.section]
+        cell?.render(with: section)
         cell?.set(delegate: self)
         return cell ?? UITableViewCell()
     }
@@ -98,7 +77,7 @@ extension MainVC: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.description()) as? HeaderView
-        headerView?.render(data: sections[section])
+        headerView?.render(section: sections[section])
         return headerView
     }
 }
