@@ -18,13 +18,13 @@ class ArticleCell: CollectionViewCell {
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.backgroundColor = .systemBlue
+        iv.backgroundColor = .systemGray
         iv.contentMode = .scaleAspectFill
         return iv
     }()
     
     let blurView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffect = UIBlurEffect(style: .regular)
         let bv = UIVisualEffectView(effect: blurEffect)
         bv.translatesAutoresizingMaskIntoConstraints = false
         return bv
@@ -56,6 +56,7 @@ class ArticleCell: CollectionViewCell {
     }
     
     func createConstaints() {
+        let inset = 10.0
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -66,10 +67,10 @@ class ArticleCell: CollectionViewCell {
             blurView.leadingAnchor.constraint(equalTo: leadingAnchor),
             blurView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: blurView.topAnchor,constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -10),
-            titleLabel.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant: -10)
+            titleLabel.topAnchor.constraint(equalTo: blurView.topAnchor,constant: inset),
+            titleLabel.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: inset),
+            titleLabel.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -inset),
+            titleLabel.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant: -inset)
             
             
         ])

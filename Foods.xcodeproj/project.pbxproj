@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		72AC5DC2E09088A9328BF6B7 /* Pods_Foods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842B91585A85FD7594BE2B87 /* Pods_Foods.framework */; };
+		B5A0054027C20A9C001F67DA /* ItemCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A0053F27C20A9B001F67DA /* ItemCounter.swift */; };
 		B5D4400D27BE834A00B01E8C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4400C27BE834A00B01E8C /* Theme.swift */; };
 		B5D4400F27BE8A7F00B01E8C /* FoodsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4400E27BE8A7E00B01E8C /* FoodsTableViewCell.swift */; };
 		B5D4401127BE8B5500B01E8C /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4401027BE8B5500B01E8C /* TableViewCell.swift */; };
@@ -33,6 +34,7 @@
 		842B91585A85FD7594BE2B87 /* Pods_Foods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8558EEAC474FE2296C06BF65 /* Pods-Foods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foods.release.xcconfig"; path = "Target Support Files/Pods-Foods/Pods-Foods.release.xcconfig"; sourceTree = "<group>"; };
 		AC822D3E7E9A262761C1DE93 /* Pods-Foods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foods.debug.xcconfig"; path = "Target Support Files/Pods-Foods/Pods-Foods.debug.xcconfig"; sourceTree = "<group>"; };
+		B5A0053F27C20A9B001F67DA /* ItemCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCounter.swift; sourceTree = "<group>"; };
 		B5D4400C27BE834A00B01E8C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B5D4400E27BE8A7E00B01E8C /* FoodsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsTableViewCell.swift; sourceTree = "<group>"; };
 		B5D4401027BE8B5500B01E8C /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				B5D4400C27BE834A00B01E8C /* Theme.swift */,
+				B5A0053F27C20A9B001F67DA /* ItemCounter.swift */,
 				B5D4401927BE8CDB00B01E8C /* NetworkService.swift */,
 				B5D4402627BEDD7A00B01E8C /* Haptic.swift */,
 				B5D4402427BEDCD900B01E8C /* Notify.swift */,
@@ -319,6 +322,7 @@
 				B5D4401827BE8C3C00B01E8C /* ArticleCell.swift in Sources */,
 				B5D4400F27BE8A7F00B01E8C /* FoodsTableViewCell.swift in Sources */,
 				B5D4402727BEDD7A00B01E8C /* Haptic.swift in Sources */,
+				B5A0054027C20A9C001F67DA /* ItemCounter.swift in Sources */,
 				B5F94CFE27BE813A0033BEEB /* BaseVC.swift in Sources */,
 				B5D4401A27BE8CDB00B01E8C /* NetworkService.swift in Sources */,
 				B5D4405927BF856100B01E8C /* Models.swift in Sources */,

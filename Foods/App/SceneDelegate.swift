@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: scene)
         let networkService = NetworkService(configurator: URLSessionConfiguration.default)
-        let vc = MainVC(network: networkService)
+        let vc = MainVC(network: networkService, counter: ItemCounter(maxSelected: 6))
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }

@@ -11,11 +11,8 @@ class HeaderView: UITableViewHeaderFooterView {
     // MARK: - Properties
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "TITLE"
         return label
     }()
     // MARK: - Life cycle
@@ -35,16 +32,17 @@ class HeaderView: UITableViewHeaderFooterView {
     }
     
     func createConstraints() {
+        let inset = 10.0
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: inset * 2),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: inset),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset)
         ])
     }
     
-    func render(data: Section?) {
-        titleLabel.attributedText = data?.header.add(attributs: (UIFont.boldSystemFont(ofSize: 22), Theme.textColor))
+    func render(section: Section?) {
+        titleLabel.attributedText = section?.header.add(attributs: (UIFont.boldSystemFont(ofSize: 22), Theme.textColor))
     }
     
 }
